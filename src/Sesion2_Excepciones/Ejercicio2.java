@@ -8,13 +8,12 @@ import java.nio.file.Path;
 
 public class Ejercicio2 {
     public static void main(String[] args) {
-        Path ruta = Path.of("documentos");
-
+        Path ruta = Path.of("datos");
         try {
             Files.delete(ruta);
             System.out.println("Directorio borrado");
         } catch (DirectoryNotEmptyException e) {
-            System.out.println("El directorio no esta vacio: " + ruta.toAbsolutePath());
+            System.out.println("El directorio no está vacío."+ruta.toAbsolutePath());
         } catch (NoSuchFileException e) {
             System.out.println("No existe el directorio: " + ruta.toAbsolutePath());
         } catch (IOException e) {

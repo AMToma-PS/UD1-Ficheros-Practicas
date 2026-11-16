@@ -1,26 +1,28 @@
 package Sesion6_Binarios;
 
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
 public class Ejercicio43_copiarIMG {
-
     public static void main(String[] args) throws IOException {
-        long inicio = System.nanoTime();
-        long bytesCopiados = 0;
+        FileInputStream in = new FileInputStream("fotogrande.jpg");
 
-        try (FileInputStream in = new FileInputStream("paisaje.jpg");
-             FileOutputStream out = new FileOutputStream("paisaje_copia.jpg")) {
-            int b;
-            while ((b = in.read()) != -1) {
-                out.write(b);
-                bytesCopiados++;
-            }
+        FileOutputStream out = new FileOutputStream("copia.jpg");
+
+        long t1 = System.nanoTime();
+
+        int b;
+        while((b = in.read()) != -1){
+            out.write(b);
         }
 
-        long milisegundos = (System.nanoTime() - inicio) / 1_000_000;
-        System.out.println("Bytes copiados: " + bytesCopiados);
-        System.out.println("Tiempo sin buffer: " + milisegundos + " ms");
+        long tiempoConBuffer = (System.nanoTime() - t1) / 1_000_000;
+
+        System.out.println("Tiempo: "+tiempoConBuffer);
+
+        in.close();
+        out.close();
     }
 }

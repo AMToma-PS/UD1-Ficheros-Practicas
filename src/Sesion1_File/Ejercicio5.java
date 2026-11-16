@@ -9,25 +9,25 @@ import java.nio.file.Path;
 
 public class Ejercicio5 {
     public static void main(String[] args) {
-        File f = new File("temporal.txt");
+        File f = new File("ejercicio3.txt");
 
         if (f.delete()) {
-            System.out.println("File.delete(): " + f.getName() + " borrado");
+            System.out.println("Borrado");
         } else {
-            System.out.println("File.delete(): no se pudo borrar " + f.getName());
+            System.out.println("No se pudo borrar");
         }
 
-        Path ruta = Path.of("temporal_nio.txt");
+        Path ruta = Path.of("datos1.txt");
 
         try {
             Files.delete(ruta);
-            System.out.println("Files.delete(): " + ruta.getFileName() + " borrado");
+            System.out.println("Borrado");
         } catch (NoSuchFileException e) {
-            System.out.println("Files.delete(): no existe " + ruta.toAbsolutePath());
+            System.out.println("No existe: " + ruta.toAbsolutePath());
         } catch (DirectoryNotEmptyException e) {
-            System.out.println("Files.delete(): es un directorio con contenido");
+            System.out.println("Es un directorio con contenido");
         } catch (IOException e) {
-            System.out.println("Files.delete(): error " + e.getMessage());
+            System.out.println("Error: " + e.getMessage());
         }
     }
 }

@@ -27,20 +27,3 @@ bin/
 
 ### Mac OS ###
 .DS_Store
-
-### Ficheros generados al ejecutar ###
-*.dat
-paisaje_copia*.jpg
-copias/
-informe*.txt
-diario.txt
-lineas.txt
-relato_completo.txt
-media_temperaturas.txt
-libros2.csv
-bandas.csv
-musicos.csv
-pilotos.csv
-escuderias.csv
-museo.xml
-peliculas.xml

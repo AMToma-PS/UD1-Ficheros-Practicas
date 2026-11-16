@@ -7,12 +7,14 @@ import java.util.stream.Stream;
 
 public class Ejercicio8_nio {
     public static void main(String[] args) {
-        Path ruta = Path.of("copias");
+        Path ruta = Path.of("datos2");
 
-        try (Stream<Path> contenido = Files.walk(ruta)) {
-            contenido.forEach(p -> System.out.println((Files.isDirectory(p) ? "[DIR]  " : "[FILE] ") + p));
+        try (Stream<Path> contenido = Files.walk(ruta);){
+            contenido.forEach(System.out::println);
+
+            contenido.close();
         } catch (IOException e) {
-            System.out.println("No se pudo recorrer " + ruta.toAbsolutePath() + ": " + e.getMessage());
+            throw new RuntimeException(e);
         }
     }
 }

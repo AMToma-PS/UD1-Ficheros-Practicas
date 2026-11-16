@@ -4,33 +4,30 @@ import java.io.File;
 
 public class Ejercicio7 {
     public static void main(String[] args) {
-        File directorio = new File("copias");
+        File directorio = new File("datos2");
 
-        if (!directorio.isDirectory()) {
-            System.out.println(directorio.getName() + " no es un directorio");
-            return;
+        System.out.println("Version 1 - usando list()");
+
+        String[] contenido = directorio.list();
+
+        if(contenido == null){
+            System.out.println("Directorio vacio");
         }
 
-        System.out.println("Version 1 - list()");
-        String[] nombres = directorio.list();
-
-        if (nombres == null || nombres.length == 0) {
-            System.out.println("Directorio vacio");
-        } else {
-            for (String nombre : nombres) {
-                System.out.println(nombre);
-            }
+        for(int i=0; i<contenido.length; i++){
+            System.out.println(contenido[i]);
         }
 
-        System.out.println("Version 2 - listFiles()");
-        File[] elementos = directorio.listFiles();
+        for (String s: contenido) {
+            System.out.println(s);
+        }
 
-        if (elementos == null || elementos.length == 0) {
-            System.out.println("Directorio vacio");
-        } else {
-            for (File f : elementos) {
-                System.out.println(f.isDirectory() ? "[DIR]  " + f.getName() : "[FILE] " + f.getName());
-            }
+        System.out.println("Version 2 - usando File()");
+
+        File[] contenido2 = directorio.listFiles();
+
+        for (File f: contenido2) {
+            System.out.println(f.isDirectory() ? "[Carpeta] "+f.getName(): "- "+f.getName());
         }
     }
 }

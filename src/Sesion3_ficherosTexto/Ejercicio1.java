@@ -6,19 +6,18 @@ import java.io.IOException;
 
 public class Ejercicio1 {
     public static void main(String[] args) {
-        try (FileReader fichero = new FileReader("notas.txt")) {
-            int caracter;
-            int total = 0;
-            while ((caracter = fichero.read()) != -1) {
-                System.out.print((char) caracter);
-                total++;
-            }
-            System.out.println();
-            System.out.println("Caracteres leidos: " + total);
+        try {
+            FileReader fichero = new FileReader("datos1.txt");
+
+            int letra;
+            while((letra = fichero.read()) != -1)
+                System.out.print((char)letra);
+
+            fichero.close();
         } catch (FileNotFoundException e) {
-            System.out.println("No se encuentra el fichero");
+            System.out.println("Error en el nombre del fichero");
         } catch (IOException e) {
-            System.out.println("Error leyendo el fichero: " + e.getMessage());
+            throw new RuntimeException(e);
         }
     }
 }

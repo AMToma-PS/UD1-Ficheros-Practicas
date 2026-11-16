@@ -7,61 +7,48 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Ejercicio62_CSV {
+      public static void main(String[] args) throws FileNotFoundException {
+          ArrayList<Alumno> alumnos = cargar("alumnos.csv");
 
-    public static void main(String[] args) throws FileNotFoundException {
-        ArrayList<Libro> libros = cargar("libros.csv");
+          alumnos.forEach(System.out::println);
 
-        System.out.println("### Libros cargados ###");
-        libros.forEach(System.out::println);
+          alumnos.add(new Alumno(3, "Julian","j@iespab.com"));
+          alumnos.get(1).setNombre("Eustaquio");
 
-        libros.add(new Libro(4, "La sombra del viento", "Carlos Ruiz Zafon"));
-        libros.get(1).setTitulo("Cien anos de soledad (edicion especial)");
-
-        guardar(libros, "libros2.csv");
-        System.out.println("### Guardado en libros2.csv ###");
-
-        modificarAutor("libros2.csv", 1, "M. de Cervantes");
-        cargar("libros2.csv").forEach(System.out::println);
+          guardar(alumnos, "alumnos2.csv");
     }
 
-    static ArrayList<Libro> cargar(String nombreFichero) throws FileNotFoundException {
-        ArrayList<Libro> librosMemoria = new ArrayList<>();
+    static ArrayList<Alumno> cargar(String nombreFichero) throws FileNotFoundException {
+        ArrayList<Alumno> alumnosMemoria = new ArrayList<>();
 
-        try (Scanner sc = new Scanner(new File(nombreFichero))) {
-            if (sc.hasNextLine())
-                sc.nextLine();
+        Scanner sc = new Scanner(new File(nombreFichero));
 
-            while (sc.hasNextLine()) {
-                String linea = sc.nextLine();
-                if (linea.isBlank())
-                    continue;
-                String[] campos = linea.split(",");
-                librosMemoria.add(new Libro(
-                        Integer.parseInt(campos[0].trim()),
-                        campos[1].trim(),
-                        campos[2].trim()));
-            }
+        String lineaTitulos = sc.nextLine();
+
+        while(sc.hasNextLine()){
+            String linea = sc.nextLine();
+            String[] datosLineaSeperados = linea.split(",");
+            Alumno a = new Alumno(
+                    Integer.parseInt(datosLineaSeperados[0]),
+                    datosLineaSeperados[1],
+                    datosLineaSeperados[2]);
+            alumnosMemoria.add(a);
         }
 
-        return librosMemoria;
+        return alumnosMemoria;
     }
 
-    static void guardar(ArrayList<Libro> libros, String nombreFichero) throws FileNotFoundException {
-        try (PrintWriter pw = new PrintWriter(new File(nombreFichero))) {
-            pw.println("id,titulo,autor");
-            for (Libro l : libros) {
-                pw.println(l);
-            }
+    static void guardar(ArrayList<Alumno> alus, String nombreFichero ) throws FileNotFoundException {
+        PrintWriter pw = new PrintWriter(new File(nombreFichero));
+
+        pw.println("id,nombre,email");
+        for (Alumno a: alus) {
+            pw.println(a);
         }
+
+        pw.close();
     }
 
-    static void modificarAutor(String nombreFichero, int id, String nuevoAutor) throws FileNotFoundException {
-        ArrayList<Libro> libros = cargar(nombreFichero);
-        for (Libro l : libros) {
-            if (l.getId() == id) {
-                l.setAutor(nuevoAutor);
-            }
-        }
-        guardar(libros, nombreFichero);
+    static void modificarEmail(int id, String nuevoEmail){
     }
 }

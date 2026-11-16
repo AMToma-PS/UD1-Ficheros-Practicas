@@ -1,7 +1,4 @@
-package Sesion5_CapasArquitectura.mundial.repositorio;
-
-import Sesion5_CapasArquitectura.mundial.modelo.Piloto;
-
+package Sesion5_CapasArquitectura.liga.repositorio;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.file.Files;
@@ -10,16 +7,19 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class RepositorioPilotoCsv {
+import Sesion5_CapasArquitectura.liga.repositorio.*;
+import Sesion5_CapasArquitectura.liga.modelo.*;
+import Sesion5_CapasArquitectura.liga.servicio.*;
 
+public class RepositorioJugadorCsv {
     private final Path fichero;
 
-    public RepositorioPilotoCsv(Path fichero) {
+    public RepositorioJugadorCsv(Path fichero) {
         this.fichero = fichero;
     }
 
-    private List<Piloto> cargar() throws IOException {
-        List<Piloto> lista = new ArrayList<>();
+    private List<Jugador> cargar() throws IOException {
+        List<Jugador> lista = new ArrayList<>();
 
         if (!Files.exists(fichero)) return lista;
 
@@ -28,8 +28,8 @@ public class RepositorioPilotoCsv {
                 String linea = sc.nextLine();
                 if (linea.isBlank()) continue;
 
-                String[] campos = linea.split(";");
-                lista.add(new Piloto(
+                String[] campos = linea.split(",");
+                lista.add(new Jugador(
                         Integer.parseInt(campos[0]),
                         campos[1],
                         Integer.parseInt(campos[2])));
@@ -38,37 +38,37 @@ public class RepositorioPilotoCsv {
         return lista;
     }
 
-    private void guardar(List<Piloto> lista) throws IOException {
+    private void guardar(List<Jugador> lista) throws IOException {
         try (PrintWriter pw = new PrintWriter(fichero.toFile())) {
-            for (Piloto p : lista) {
-                pw.println(p.getDorsal() + ";" + p.getNombre() + ";" + p.getIdEscuderia());
+            for (Jugador j : lista) {
+                pw.println(j.getDorsal() + "," + j.getNombre() + "," + j.getIdEquipo());
             }
         }
     }
 
-    public List<Piloto> buscarTodos() throws IOException {
+    public List<Jugador> buscarTodos() throws IOException {
         return cargar();
     }
 
-    public Piloto buscarPorId(int dorsal) throws IOException {
-        for (Piloto p : cargar()) {
-            if (p.getDorsal() == dorsal) return p;
+    public Jugador buscarPorId(int dorsal) throws IOException {
+        for (Jugador j : cargar()) {
+            if (j.getDorsal() == dorsal) return j;
         }
         return null;
     }
 
-    public void insertar(Piloto piloto) throws IOException {
-        List<Piloto> lista = cargar();
-        lista.add(piloto);
+    public void insertar(Jugador jugador) throws IOException {
+        List<Jugador> lista = cargar();
+        lista.add(jugador);
         guardar(lista);
     }
 
-    public boolean actualizar(Piloto piloto) throws IOException {
-        List<Piloto> lista = cargar();
+    public boolean actualizar(Jugador jugador) throws IOException {
+        List<Jugador> lista = cargar();
 
         for (int i = 0; i < lista.size(); i++) {
-            if (lista.get(i).getDorsal() == piloto.getDorsal()) {
-                lista.set(i, piloto);
+            if (lista.get(i).getDorsal() == jugador.getDorsal()) {
+                lista.set(i, jugador);
                 guardar(lista);
                 return true;
             }
@@ -77,7 +77,7 @@ public class RepositorioPilotoCsv {
     }
 
     public boolean eliminar(int dorsal) throws IOException {
-        List<Piloto> lista = cargar();
+        List<Jugador> lista = cargar();
 
         for (int i = 0; i < lista.size(); i++) {
             if (lista.get(i).getDorsal() == dorsal) {

@@ -1,48 +1,43 @@
 package Sesion4_PrintWriterScanner_CSV;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Ejercicio61 {
     public static void main(String[] args) {
-        ArrayList<Integer> temperaturas = new ArrayList<>();
-        int suma = 0;
+        ArrayList<Integer> numeros = new ArrayList<>();
+        int numerosSumados = 0;
+        int cuantosNumerosHay = 0;
 
-        try (Scanner sc = new Scanner(new File("temperaturas.txt"))) {
-            while (sc.hasNextLine()) {
-                String linea = sc.nextLine().trim();
+        try {
+            Scanner sc = new Scanner(new File("media.txt"));
+
+            while(sc.hasNextLine()){
                 try {
-                    int temperatura = Integer.parseInt(linea);
-                    suma += temperatura;
-                    temperaturas.add(temperatura);
-                    System.out.println("Temperatura leida: " + temperatura);
-                } catch (NumberFormatException e) {
-                    System.out.println("Linea ignorada: \"" + linea + "\"");
+                    int numeroAuxiliar = Integer.valueOf(sc.nextLine());
+                    numerosSumados += numeroAuxiliar;
+                    numeros.add(numeroAuxiliar);
+                    System.out.println("Numero leido: "+numeroAuxiliar  );
+                }catch (Exception e){
+                    System.out.println("He leido algo raro");
                 }
             }
+
+            sc.close();
+
+            cuantosNumerosHay = numeros.size();
+            float resultado = numerosSumados / cuantosNumerosHay;
+
+            PrintWriter pw = new PrintWriter(new FileWriter("resultado.txt"));
+
+            pw.printf("Media: %.2f%n", resultado);
+
+            pw.close();
         } catch (FileNotFoundException e) {
-            System.out.println("No se encuentra temperaturas.txt");
-            return;
-        }
-
-        if (temperaturas.isEmpty()) {
-            System.out.println("No hay temperaturas validas");
-            return;
-        }
-
-        double media = (double) suma / temperaturas.size();
-
-        try (PrintWriter pw = new PrintWriter(new FileWriter("media_temperaturas.txt"))) {
-            pw.printf("Lecturas: %d%n", temperaturas.size());
-            pw.printf("Media: %.2f%n", media);
-            System.out.printf("Media guardada en media_temperaturas.txt: %.2f%n", media);
+            throw new RuntimeException(e);
         } catch (IOException e) {
-            System.out.println("Error al escribir el resultado: " + e.getMessage());
+            throw new RuntimeException(e);
         }
     }
 }

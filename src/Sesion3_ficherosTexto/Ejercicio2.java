@@ -1,23 +1,29 @@
 package Sesion3_ficherosTexto;
 
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 
 public class Ejercicio2 {
     public static void main(String[] args) {
-        char vocalBuscada = 'E';
-        char vocal = Character.toLowerCase(vocalBuscada);
-
-        try (FileReader lector = new FileReader("cuento.txt")) {
+        try {
+            FileReader fReader = new FileReader("libro.txt");
             int contador = 0;
-            int caracter;
-            while ((caracter = lector.read()) != -1) {
-                if (Character.toLowerCase((char) caracter) == vocal)
+            char vocalBuscada = 'a';
+
+            int letra;
+            while((letra = fReader.read())!=-1){
+                if(vocalBuscada == Character.toLowerCase(letra))
                     contador++;
             }
-            System.out.println("La vocal '" + vocal + "' aparece " + contador + " veces");
+
+            fReader.close();
+
+            System.out.println("El resultado es: "+contador+" "+vocalBuscada+"s");
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
         } catch (IOException e) {
-            System.out.println("Error leyendo el fichero: " + e.getMessage());
+            throw new RuntimeException(e);
         }
     }
 }

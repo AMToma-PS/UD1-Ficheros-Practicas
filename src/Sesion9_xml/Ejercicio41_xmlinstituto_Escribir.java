@@ -14,30 +14,27 @@ import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import java.io.File;
 
-public class Ejercicio41_xmlmuseo_Escribir {
-
+public class Ejercicio41_xmlinstituto_Escribir {
     public static void main(String[] args) throws ParserConfigurationException, TransformerException {
         DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
         DocumentBuilder db = dbf.newDocumentBuilder();
+
         Document doc = db.newDocument();
 
-        Element raiz = doc.createElement("museo");
+        Element raiz = doc.createElement("instituto");
         doc.appendChild(raiz);
 
         Element nombre = doc.createElement("nombre");
-        nombre.setTextContent("Museo del Prado");
+        nombre.setTextContent("IES Pablo Serrano");
         nombre.setAttribute("idioma", "ES");
         raiz.appendChild(nombre);
 
         Element ciudad = doc.createElement("ciudad");
-        ciudad.setTextContent("Madrid");
+        ciudad.setTextContent("Zaragoza");
         raiz.appendChild(ciudad);
 
         Transformer tr = TransformerFactory.newInstance().newTransformer();
         tr.setOutputProperty(OutputKeys.INDENT, "yes");
-        tr.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "4");
-        tr.transform(new DOMSource(doc), new StreamResult(new File("museo.xml")));
-
-        System.out.println("Generado museo.xml");
+        tr.transform(new DOMSource(doc), new StreamResult(new File("ejercicio41.xml")));
     }
 }

@@ -4,16 +4,21 @@ import java.io.File;
 
 public class Ejercicio6 {
     public static void main(String[] args) {
-        File d = new File("documentos");
+        File d = new File("datos");
 
-        if (!d.exists()) {
-            System.out.println("La carpeta " + d.getName() + " no existe");
-        } else if (!d.isDirectory()) {
-            System.out.println(d.getName() + " no es un directorio");
-        } else if (d.delete()) {
-            System.out.println("Carpeta " + d.getName() + " borrada");
+        if (!d.exists())      {
+            System.out.println("No existe");
+            return;
+        }
+        if (!d.isDirectory()) {
+            System.out.println("No es un directorio");
+            return;
+        }
+
+        if (d.delete()) {
+            System.out.println("Directorio borrado");
         } else {
-            System.out.println("No se pudo borrar " + d.getName() + ": no esta vacia");
+            System.out.println("No se pudo borrar (¿está vacío?)");
         }
     }
 }

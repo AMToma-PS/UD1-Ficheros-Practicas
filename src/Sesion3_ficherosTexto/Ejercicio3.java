@@ -5,14 +5,12 @@ import java.io.IOException;
 
 public class Ejercicio3 {
     public static void main(String[] args) throws IOException {
-        int numeroFicheros = 4;
+        int numeroFicheros = 5;
 
-        for (int i = 1; i <= numeroFicheros; i++) {
-            String nombre = "informe" + i + ".txt";
-            try (FileWriter escritor = new FileWriter(nombre)) {
-                escritor.write("Este es el fichero " + nombre);
-            }
-            System.out.println("Creado " + nombre);
+        for(int i=0; i<numeroFicheros; i++){
+            FileWriter fWriter = new FileWriter("nombre"+i+".txt");
+            fWriter.write("Este es fichero numero"+i);
+            fWriter.close();
         }
     }
 }

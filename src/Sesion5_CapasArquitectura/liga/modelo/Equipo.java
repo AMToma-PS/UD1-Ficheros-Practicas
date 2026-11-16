@@ -1,18 +1,18 @@
-package Sesion5_CapasArquitectura.mundial.modelo;
+package Sesion5_CapasArquitectura.liga.modelo;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class Escuderia {
-
+public class Equipo {
     private int id;
     private String nombre;
     private int puntos;
-    private List<Piloto> pilotos = new ArrayList<>();
 
-    public Escuderia() { }
+    private List<Jugador> jugadores = new ArrayList<>();
 
-    public Escuderia(int id, String nombre, int puntos) {
+    public Equipo() { }
+
+    public Equipo(int id, String nombre, int puntos) {
         this.id = id;
         this.nombre = nombre;
         this.puntos = puntos;
@@ -27,11 +27,11 @@ public class Escuderia {
     public int getPuntos() { return puntos; }
     public void setPuntos(int puntos) { this.puntos = puntos; }
 
-    public List<Piloto> getPilotos() { return pilotos; }
-    public void setPilotos(List<Piloto> pilotos) { this.pilotos = pilotos; }
+    public List<Jugador> getJugadores() { return jugadores; }
+    public void setJugadores(List<Jugador> jugadores) { this.jugadores = jugadores; }
 
     @Override
     public String toString() {
-        return id + ", " + nombre + ", " + puntos + " puntos, pilotos=" + pilotos.size();
+        return id + ", " + nombre + ", " + puntos + " puntos, jugadores=" + jugadores.size();
     }
 }

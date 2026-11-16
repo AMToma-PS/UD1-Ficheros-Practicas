@@ -1,35 +1,35 @@
 package Sesion3_ficherosTexto;
 
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 
 public class Ejercicio6 {
     public static void main(String[] args) {
         try {
-            int numPalabras = cuentaPalabrasFichero("palabras.txt");
-            System.out.println("Palabras encontradas: " + numPalabras);
+            int numPalabras = cuentaPalabrasFichero("ejercicio6.txt");
+            System.out.println("Palabras encontradas: "+numPalabras);
+        } catch (FileNotFoundException e) {
+            System.out.println("Ha sucedido un error. Vuelve a intentarlo");
         } catch (IOException e) {
-            System.out.println("Ha sucedido un error: " + e.getMessage());
+            System.out.println("Ha sucedido un error. Vuelve a intentarlo");
         }
     }
 
     public static int cuentaPalabrasFichero(String nombreFichero) throws IOException {
-        int contador = 0;
+        BufferedReader bReader = new BufferedReader(
+                                        new FileReader(nombreFichero));
 
-        try (BufferedReader lector = new BufferedReader(new FileReader(nombreFichero))) {
-            String linea;
-            int numLinea = 0;
-            while ((linea = lector.readLine()) != null) {
-                numLinea++;
+        int contador =0;
+        String linea = "";
+
+        while((linea = bReader.readLine()) != null){
+            if(!linea.isEmpty()){
                 linea = linea.trim();
-                if (linea.isEmpty()) {
-                    System.out.println("Linea " + numLinea + ": vacia");
-                    continue;
-                }
-                int palabras = linea.split("\\s+").length;
-                contador += palabras;
-                System.out.println("Linea " + numLinea + ": " + palabras + " palabras");
+                String[] palabrasLinea = linea.split("\\s+");
+                contador += palabrasLinea.length;
+                System.out.println("Palabras contadas en esta linea: "+palabrasLinea.length);
             }
         }
 
