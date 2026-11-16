@@ -9,7 +9,7 @@ public class Ejercicio42_binario {
     public static void main(String[] args) throws IOException {
         DataInputStream in = new DataInputStream(new FileInputStream("datos.dat"));
 
-        float numero = in.readFloat();
+        int numero = in.readInt();
 
         System.out.println("El numero leido es: "+numero);
 

@@ -14,7 +14,7 @@ public class Jugador {
     public Jugador(int dorsal, String nombre, int idEquipo) {
         this.dorsal = dorsal;
         this.nombre = nombre;
-        this.equipo = equipo;
+        this.equipo = idEquipo;
     }
 
     public int getDorsal() {

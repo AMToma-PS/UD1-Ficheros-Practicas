@@ -31,7 +31,7 @@ public class Ejercicio61_bis {
             PrintWriter pw = new PrintWriter(new FileWriter("resultado.txt"));
 
             if(media.isPresent())
-                pw.printf("Media: %.2f%n", media.toString());
+                pw.printf("Media: %.2f%n", media.getAsDouble());
 
             pw.close();
         } catch (FileNotFoundException e) {
